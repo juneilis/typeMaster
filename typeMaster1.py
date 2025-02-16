@@ -11,6 +11,7 @@ def main(page: ft.Page):
     errores = 0
     palabrasTotales = len(palabras)
 
+    tituloLabel = ft.Text("Type Master", size=24, weight="bold", color="blue")
     palabraLabel = ft.Text(palabras[index], size=16)
     estadoLabel = ft.Text("", size=20)
     aciertosLabel = ft.Text("Precisión: 100.00%", size=16)
@@ -31,6 +32,8 @@ def main(page: ft.Page):
         if index < palabrasTotales:
             palabraLabel.value = palabras[index]
             progresoLabel.value = f"Progreso: {index}/{palabrasTotales}" 
+            aciertos = ((palabrasTotales - errores)/ palabrasTotales) * 100
+            aciertosLabel.value = f"Precisión: {aciertos: .2f}% (Errores: {errores})" 
             input1.value = ""
         else:
             aciertos = ((palabrasTotales - errores)/ palabrasTotales) * 100
@@ -39,7 +42,7 @@ def main(page: ft.Page):
         
         page.update()
 
-    page.add(palabraLabel, input1,estadoLabel, aciertosLabel, progresoLabel)
+    page.add(tituloLabel,palabraLabel, input1,estadoLabel, aciertosLabel, progresoLabel)
 
 ft.app(target=main)
 
