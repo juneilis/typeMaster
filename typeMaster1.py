@@ -17,7 +17,7 @@ def main(page: ft.Page):
     aciertosLabel = ft.Text("Precisión: 100.00%", size=16)
     progresoLabel = ft.Text(f"Progreso: {index}/{palabrasTotales}", size=16)
 
-    input1 = ft.TextField(on_submit=lambda e: chequearPalabra(e, page))
+    input1 = ft.TextField(on_submit=lambda e: chequearPalabra(e, page), border_color="blue")
 
     def chequearPalabra(e, page):
         nonlocal index, errores
@@ -28,6 +28,7 @@ def main(page: ft.Page):
             estadoLabel.value = "Incorrecto"
             estadoLabel.color = "red"
             errores +=1
+            input1.focus()
         index +=1
         if index < palabrasTotales:
             palabraLabel.value = palabras[index]
@@ -35,12 +36,14 @@ def main(page: ft.Page):
             aciertos = ((palabrasTotales - errores)/ palabrasTotales) * 100
             aciertosLabel.value = f"Precisión: {aciertos: .2f}% (Errores: {errores})" 
             input1.value = ""
+            input1.focus()
         else:
             aciertos = ((palabrasTotales - errores)/ palabrasTotales) * 100
             aciertosLabel.value = f"Precisión: {aciertos: .2f}% (Errores: {errores})" 
             input1.disabled = True
         
         page.update()
+        input1.focus()
 
     page.add(tituloLabel,palabraLabel, input1,estadoLabel, aciertosLabel, progresoLabel)
 
